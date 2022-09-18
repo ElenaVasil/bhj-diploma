@@ -14,10 +14,9 @@ const createRequest = (options = {}) => {
     }
   }
   if (options.callback) {
+    let err = null;
+    let response = null;
     xhr.onload = () => {
-      let err = null;
-      let response = null;
-
       try {
         if (xhr.response && xhr.response.success) {
           response = xhr.response;

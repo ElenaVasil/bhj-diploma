@@ -26,7 +26,7 @@ class CreateTransactionForm extends AsyncForm {
           })
         })
       }
-    });
+    })
   }
 
   /**
