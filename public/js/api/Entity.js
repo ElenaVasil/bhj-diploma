@@ -9,12 +9,13 @@ class Entity {
    * Это могут быть счета или доходы/расходы
    * (в зависимости от того, что наследуется от Entity)
    * */
-  static list(data, callback){
+  static list(data, callback) {
     createRequest({
       url: this.URL,
       data,
       callback,
-      method: 'GET'
+      method: 'GET',
+      responseType: 'json'
     });
   }
 
@@ -28,7 +29,8 @@ class Entity {
       url: this.URL,
       data,
       callback,
-      method: 'PUT'
+      method: 'PUT',
+      responseType: 'json'
     });
   }
 
@@ -41,7 +43,8 @@ class Entity {
       url: this.URL,
       data,
       callback,
-      method: 'DELETE'
+      method: 'DELETE',
+      responseType: 'json'
     });
   }
 }

@@ -10,7 +10,10 @@ class AccountsWidget {
    * списка счетов и последующего отображения
    * Если переданный элемент не существует,
    * необходимо выкинуть ошибку. */
-  constructor( element ) {
+  constructor(element) {
+    if (!element) {
+      throw new Error('Element is not defined');
+    }
     this.element = element;
     this.registerEvents();
     this.update();
@@ -23,11 +26,13 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()  */
   registerEvents() {
     this.element.onclick = e => {
-      if (e.target.classList.contains('header')) {
-        return
-      }
       e.preventDefault();
-      this.onSelectAccount(e.target.closest('li'));
+      if (e.target.closest('li').classList.contains('account')) {
+        this.onSelectAccount(e.target.closest('li'));
+      }
+      if (e.target.classList.contains('create-account')) {
+        App.getModal('createAccount').open();
+      }
     }
   }
 
@@ -42,10 +47,10 @@ class AccountsWidget {
    * метода renderItem() */
   update() {
     if (User.current()) {
-      Account.list(null, (err, resp) => {
-        if (resp && resp.success) {
+      Account.list(null, (err, response) => {
+        if (response && response.success) {
           this.clear();
-          resp.data.forEach(item => {
+          response.data.forEach(item => {
             this.renderItem(item);
           })
         }
@@ -74,6 +79,7 @@ class AccountsWidget {
       this.prevActiveElement.classList.remove('active');
     }
     element.classList.add('active');
+    App.showPage('transactions', {account_id: element.dataset.id});
     this.prevActiveElement = element;
   }
   /**

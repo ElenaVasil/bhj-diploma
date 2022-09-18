@@ -37,10 +37,10 @@ class Sidebar {
     document.querySelector('.menu-item_logout').onclick = e => {
       e.preventDefault();
       User.logout((err, response) => {
-        if (resp && resp.success) {
+        if (response && response.success) {
           App.setState('init');
         }
-      })
+      });
     }
   }
 }
