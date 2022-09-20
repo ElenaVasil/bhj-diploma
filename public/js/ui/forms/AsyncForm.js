@@ -19,8 +19,11 @@ class AsyncForm {
    * вызывает метод submit() */
   registerEvents() {
     this.element.onSubmit = e => {
-      e.preventDefault();
-      this.submit();
+      if (this.element.checkValidity()) {
+        e.preventDefault();
+        this.submit();
+      }
+      
     }
   }
   /* Преобразует данные формы в объект вида
