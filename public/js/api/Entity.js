@@ -39,7 +39,7 @@ class Entity {
    * (в зависимости от того, что наследуется от Entity)
    * */
   static remove(data, callback ) {
-    createREquest({
+    createRequest({
       url: this.URL,
       data,
       callback,
